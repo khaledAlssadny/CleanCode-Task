@@ -176,6 +176,6 @@ function validateForm() {
 No build tools needed. Just open either file in your browser.
 
 ```bash
-open form-old.html   # before refactor
-open form-new.html   # after refactor
+open index.html   # before refactor
+open index2.html   # after refactor
 ```
