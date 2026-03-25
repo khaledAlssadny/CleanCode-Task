@@ -1,0 +1,10 @@
+1. Meaningful Names
+2. Single Responsibility Principle (SRP)
+3. Keep Functions Small
+4. DRY (Don’t Repeat Yourself)
+5. Use Comments Wisely
+6. Consistent Formatting
+7. Avoid Deep Nesting
+8. Use Constants
+9. Write Testable Code
+10. Keep It Simple (KISS)

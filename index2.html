@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form Validation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 50px auto;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 2px;
+        box-sizing: border-box;
+      }
+      .error {
+        color: red;
+        font-size: 12px;
+      }
+      .success {
+        color: green;
+      }
+      button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Registration Form</h2>
+    <form id="myForm">
+      <label>Name:</label>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <span class="error" id="nameError"></span>
+
+      <label>Email:</label>
+      <input type="text" id="email" placeholder="Enter your email" />
+      <span class="error" id="emailError"></span>
+
+      <label>Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" />
+      <span class="error" id="passwordError"></span>
+
+      <label>Age:</label>
+      <input type="text" id="age" placeholder="Enter your age" />
+      <span class="error" id="ageError"></span>
+
+      <button type="button" onclick="validateForm()">Submit</button>
+      <p id="successMsg" class="success"></p>
+    </form>
+
+    <script>
+      const MIN_NAME_LENGTH = 2;
+      const MIN_PASSWORD_LENGTH = 6;
+      const MIN_AGE = 1;
+      const MAX_AGE = 120;
+
+      function getInputValue(id) {
+        return document.getElementById(id).value.trim();
+      }
+
+      function setError(id, message) {
+        document.getElementById(id).textContent = message;
+      }
+
+      function clearErrors() {
+        document
+          .querySelectorAll(".error")
+          .forEach((e) => (e.textContent = ""));
+        setError("successMsg", "");
+      }
+
+      function validateName(name) {
+        if (name === "") return "Name is required.";
+        if (name.length < MIN_NAME_LENGTH)
+          return "Name must be at least 2 characters.";
+        return "";
+      }
+
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === "") return "Email is required.";
+        if (!emailRegex.test(email)) return "Enter a valid email address.";
+        return "";
+      }
+
+      function validatePassword(password) {
+        if (password === "") return "Password is required.";
+        if (password.length < MIN_PASSWORD_LENGTH)
+          return "Password must be at least 6 characters.";
+        return "";
+      }
+
+      function validateAge(age) {
+        if (age === "") return "Age is required.";
+        if (isNaN(age) || age < MIN_AGE || age > MAX_AGE)
+          return "Enter a valid age (1–120).";
+        return "";
+      }
+
+      function validateForm() {
+        clearErrors();
+
+        const name = getInputValue("name");
+        const email = getInputValue("email");
+        const password = getInputValue("password");
+        const age = getInputValue("age");
+
+        const nameError = validateName(name);
+        const emailError = validateEmail(email);
+        const passwordError = validatePassword(password);
+        const ageError = validateAge(age);
+
+        setError("nameError", nameError);
+        setError("emailError", emailError);
+        setError("passwordError", passwordError);
+        setError("ageError", ageError);
+
+        const isValid =
+          !nameError && !emailError && !passwordError && !ageError;
+
+        if (isValid) {
+          setError("successMsg", "✅ Form submitted successfully!");
+        }
+      }
+    </script>
+  </body>
+</html>

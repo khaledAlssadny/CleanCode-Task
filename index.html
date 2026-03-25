@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form Validation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 50px auto;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 2px;
+        box-sizing: border-box;
+      }
+      .error {
+        color: red;
+        font-size: 12px;
+      }
+      .success {
+        color: green;
+      }
+      button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Registration Form</h2>
+    <form id="myForm">
+      <label>Name:</label>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <span class="error" id="nameError"></span>
+
+      <label>Email:</label>
+      <input type="text" id="email" placeholder="Enter your email" />
+      <span class="error" id="emailError"></span>
+
+      <label>Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" />
+      <span class="error" id="passwordError"></span>
+
+      <label>Age:</label>
+      <input type="text" id="age" placeholder="Enter your age" />
+      <span class="error" id="ageError"></span>
+
+      <button type="button" onclick="validateForm()">Submit</button>
+      <p id="successMsg" class="success"></p>
+    </form>
+
+    <script>
+      function validateForm() {
+        // Clear previous errors
+        const errors = document.querySelectorAll(".error");
+        errors.forEach((e) => (e.textContent = ""));
+        document.getElementById("successMsg").textContent = "";
+
+        let isValid = true;
+
+        // 1. Name validation
+        const name = document.getElementById("name").value.trim();
+        if (name === "") {
+          document.getElementById("nameError").textContent =
+            "Name is required.";
+          isValid = false;
+        } else if (name.length < 2) {
+          document.getElementById("nameError").textContent =
+            "Name must be at least 2 characters.";
+          isValid = false;
+        }
+
+        // 2. Email validation
+        const email = document.getElementById("email").value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === "") {
+          document.getElementById("emailError").textContent =
+            "Email is required.";
+          isValid = false;
+        } else if (!emailRegex.test(email)) {
+          document.getElementById("emailError").textContent =
+            "Enter a valid email address.";
+          isValid = false;
+        }
+
+        // 3. Password validation
+        const password = document.getElementById("password").value;
+        if (password === "") {
+          document.getElementById("passwordError").textContent =
+            "Password is required.";
+          isValid = false;
+        } else if (password.length < 6) {
+          document.getElementById("passwordError").textContent =
+            "Password must be at least 6 characters.";
+          isValid = false;
+        }
+
+        // 4. Age validation
+        const age = document.getElementById("age").value.trim();
+        if (age === "") {
+          document.getElementById("ageError").textContent = "Age is required.";
+          isValid = false;
+        } else if (isNaN(age) || age < 1 || age > 120) {
+          document.getElementById("ageError").textContent =
+            "Enter a valid age (1–120).";
+          isValid = false;
+        }
+
+        // Show success
+        if (isValid) {
+          document.getElementById("successMsg").textContent =
+            "✅ Form submitted successfully!";
+        }
+      }
+    </script>
+  </body>
+</html>
