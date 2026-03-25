@@ -9,8 +9,8 @@ The project contains two versions of the same form so you can see the before/aft
 
 | File | Description |
 |------|-------------|
-| `form-old.html` | Original code — validation logic crammed into one function |
-| `form-new.html` | Refactored code — 10 Clean Code Principles applied |
+| `index.html` | Original code — validation logic crammed into one function |
+| `index2.html` | Refactored code — 10 Clean Code Principles applied |
 
 ---
 
